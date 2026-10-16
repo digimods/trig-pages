@@ -1,0 +1,92 @@
+{
+ "id": "trig-pages",
+ "version": "0.1",
+ "title": "TRIG pages",
+ "category": "Framework",
+ "license": "GPL-2.0-or-later",
+ "description": "More TRIG sub-pages, for generators: press TRIG again for 2/3, where knob A picks the track's generator (a mod that changes what its steps play) and B-H are its knobs, drawn as the stock pages draw theirs; once more for 3/3, the generator's view. The stock TRIG page stays 1/3. Each track's generator and knobs are kept on the +Drive. On its own (no generator) it adds only the GEN knob.",
+ "device": "digitakt-mk1",
+ "os": "1.53",
+ "sources": [
+  "trigpages.c",
+  "fonts.s"
+ ],
+ "cflags": [
+  "-Iinclude",
+  "-DFW_TRIG_DRAW=0x400368ba",
+  "-DFW_TRACK_OF=0x4001d24e",
+  "-DFW_TEXTBOX=0x400c27cc",
+  "-DFW_KNOB_SET=0x421f84c4",
+  "-DFW_NO_KNOB=0x421f7f60",
+  "-DFW_KNOB_INIT=0x400c02e4",
+  "-DFW_KNOB_TICK=0x400c03cc",
+  "-DFW_KNOB_FILTER=0x400c05ee",
+  "-DFW_KNOB_CORE=0x400c0486",
+  "-DFW_KNOB_NOTCH=0x4208cb64",
+  "-DFW_EK_OPEN=0x400cf178",
+  "-DFW_EK_READ=0x400ceebe",
+  "-DFW_EK_WRITE=0x400cef1e",
+  "-DFW_EK_CLOSE=0x400cf136",
+  "-DFW_EK_MKDIR=0x400cde0c",
+  "-DFW_EK_LOOKUP=0x400d0aa4",
+  "-DFW_EK_LOCK=0x40001884",
+  "-DFW_EK_UNLOCK=0x400019b6",
+  "-DFW_EK_MUTEX=0x42685690",
+  "-DFW_EK_MOUNTED=0x420edc50"
+ ],
+ "sites": [
+  {
+   "addr": "0x40184018",
+   "stock": "400368ba",
+   "op": "ptr",
+   "target": "tp_draw"
+  }
+ ],
+ "collections": {
+  "tp_gens": 4
+ },
+ "subscribe": [
+  {
+   "event": "ev_tick",
+   "fn": "tp_tick",
+   "order": 50
+  },
+  {
+   "event": "ev_enc",
+   "fn": "tp_enc",
+   "order": 30
+  },
+  {
+   "event": "ev_draw",
+   "fn": "tp_overlay",
+   "order": 50
+  },
+  {
+   "event": "ev_gen_trig",
+   "fn": "tp_trig",
+   "order": 40
+  },
+  {
+   "event": "ev_gen_notes",
+   "fn": "tp_notes",
+   "order": 40
+  },
+  {
+   "event": "ev_fire_vel",
+   "fn": "tp_vel",
+   "order": 40
+  },
+  {
+   "event": "ev_fire_locks",
+   "fn": "tp_locks",
+   "order": 40
+  }
+ ],
+ "requires": [
+  "core",
+  "seq-events"
+ ],
+ "resources": {
+  "core": "4.0"
+ }
+}
